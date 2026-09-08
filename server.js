@@ -126,6 +126,9 @@ if (config.channelSecret && config.channelAccessToken) {
   app.post('/webhook', line.middleware(config), async (req,res) => {
     try {
       for (const event of req.body.events || []) {
+  console.log('LINE EVENT:', JSON.stringify(event, null, 2));
+console.log('SOURCE TYPE:', event.source?.type);
+console.log('GROUP ID:', event.source?.groupId || '沒有 groupId');
         if (event.source?.type !== 'group') continue;
 
         const groupId = event.source.groupId;
