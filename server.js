@@ -3,11 +3,15 @@ import express from 'express';
 import { DatabaseSync } from 'node:sqlite';
 import * as line from '@line/bot-sdk';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const app = express();
-const port = process.env.PORT || 3000;
+
+const dataDir = path.join(__dirname, 'data');
+fs.mkdirSync(dataDir, { recursive: true });
+
+const app = express();const port = process.env.PORT || 3000;
 const db = new DatabaseSync(path.join(__dirname, 'data', 'houses.db'));
 
 db.exec(`
