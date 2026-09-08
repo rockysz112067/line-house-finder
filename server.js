@@ -11,8 +11,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dataDir = path.join(__dirname, 'data');
 fs.mkdirSync(dataDir, { recursive: true });
 
-const app = express();const port = process.env.PORT || 3000;
-const db = new DatabaseSync(path.join(__dirname, 'data', 'houses.db'));
+const dbPath = path.join(dataDir, 'houses.db');
+const db = new DatabaseSync(dbPath);
+
+const app = express();
+const port = process.env.PORT || 3001;
 
 db.exec(`
 CREATE TABLE IF NOT EXISTS groups (
