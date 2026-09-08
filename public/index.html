@@ -1,0 +1,40 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>LINE 房源搜尋器</title><link rel="stylesheet" href="/style.css"></head><body>
+<div class="shell">
+<header><div><h1>房源搜尋器</h1><p>指定 LINE 群組，快速篩選房源</p></div><div id="stats" class="stats">載入中…</div></header>
+<nav><button class="tab active" data-tab="search">找房</button><button class="tab" data-tab="import">匯入舊資料</button><button class="tab" data-tab="help">LINE 設定</button></nav>
+<main>
+<section id="search" class="panel active">
+  <div class="grid">
+    <label>LINE 群組<select id="group"></select></label>
+    <label>地區<select id="district"><option value="">不限</option><option>北屯</option><option>西屯</option><option>北區</option><option>南屯</option><option>中區</option><option>西區</option></select></label>
+    <label>房型<select id="roomType"><option value="">不限</option><option>套房</option><option>1房</option><option>2房</option><option>3房</option><option>4房</option></select></label>
+    <label>最低租金<input id="minRent" type="number" placeholder="例如 8000"></label>
+    <label>最高租金<input id="maxRent" type="number" placeholder="例如 16000"></label>
+    <label>關鍵字<input id="keyword" placeholder="SOGO、青海、漢口…"></label>
+  </div>
+  <h3>必要條件</h3>
+  <div class="chips" id="flags">
+    <label><input type="checkbox" value="elevator"><span>電梯</span></label>
+    <label><input type="checkbox" value="trash_service"><span>子母車／垃圾集中</span></label>
+    <label><input type="checkbox" value="car_parking"><span>汽車位</span></label>
+    <label><input type="checkbox" value="scooter_parking"><span>機車位</span></label>
+    <label><input type="checkbox" value="subsidy"><span>可租補</span></label>
+    <label><input type="checkbox" value="pet"><span>可寵</span></label>
+    <label><input type="checkbox" value="cat"><span>可貓</span></label>
+    <label><input type="checkbox" value="dog"><span>可狗</span></label>
+    <label><input type="checkbox" value="cooking"><span>可開伙</span></label>
+    <label><input type="checkbox" value="balcony"><span>陽台</span></label>
+    <label><input type="checkbox" value="washer"><span>獨洗</span></label>
+    <label><input type="checkbox" value="dryer_area"><span>獨曬</span></label>
+  </div>
+  <button id="searchBtn" class="primary">搜尋房源</button>
+  <div id="resultMeta" class="result-meta"></div><div id="results" class="results"></div>
+</section>
+<section id="import" class="panel">
+  <h2>匯入舊訊息／記事本</h2><p class="muted">LINE 官方 API 無法讀取既有記事本與歷史訊息。把記事本或匯出的聊天文字貼在這裡，之後就能和新訊息一起搜尋。</p>
+  <label>歸屬群組<select id="importGroup"></select></label>
+  <label>內容<textarea id="importText" rows="14" placeholder="貼上房源資料，多筆資料中間空一行"></textarea></label>
+  <div class="row"><button id="importBtn" class="primary">分析並匯入</button><button id="addGroupBtn" class="secondary">建立手動群組</button></div><div id="importStatus"></div>
+</section>
+<section id="help" class="panel"><h2>LINE 串接方式</h2><ol><li>建立 LINE Official Account 與 Messaging API Channel</li><li>開啟「允許 Bot 加入群組」</li><li>把 Bot 邀進你的房源群組</li><li>把 Webhook URL 設為 <code>https://你的網域/webhook</code></li><li>在 <code>.env</code> 填入 Channel Access Token 與 Channel Secret</li><li>之後群組中的新文字訊息會自動存入本系統</li></ol><p class="note">只有 Bot 加入後收到的新訊息能自動收集；舊資料請使用「匯入舊資料」。</p></section>
+</main></div><script src="/app.js"></script></body></html>
